@@ -45,6 +45,7 @@ uint32_t set_result_get_publicKey(void);
 #define INS_SIGN_TXN_HASH 0x05  // unsafe
 #define INS_GET_APP_CONFIGURATION 0x06  // version and settings
 #define INS_SIGN_PERSONAL_MESSAGE 0x08
+#define INS_SIGN_EIP_712_MESSAGE 0x0C
 #define INS_GET_ECDH_SECRET 0x0A
 
 #define P1_CONFIRM 0x01
@@ -99,6 +100,16 @@ unsigned int io_seproxyhal_touch_tx_ok(const bagl_element_t *e);
 unsigned int io_seproxyhal_touch_cancel(const bagl_element_t *e);
 unsigned int io_seproxyhal_touch_address_ok(const bagl_element_t *e);
 unsigned int io_seproxyhal_touch_signMessage_ok(const bagl_element_t *e);
+
+typedef struct messageSigningContext712_t {
+    uint8_t pathLength;
+    uint32_t bip32Path[MAX_BIP32_PATH];
+    uint8_t domainHash[32];
+    uint8_t messageHash[32];
+} messageSigningContext712_t;
+
+unsigned int io_seproxyhal_touch_signMessage712_v0_ok(const bagl_element_t* e);
+unsigned int io_seproxyhal_touch_signMessage712_v0_cancel(const bagl_element_t* e);
 
 #define VOTE_ADDRESS 0
 #define VOTE_ADDRESS_SIZE 15
@@ -3573,6 +3584,11 @@ void handleApdu(volatile unsigned int *flags, volatile unsigned int *tx) {
                     G_io_apdu_buffer + OFFSET_CDATA,
                     G_io_apdu_buffer[OFFSET_LC],
                     flags, tx);
+                break;
+
+            case INS_SIGN_EIP_712_MESSAGE:
+                os_memset(tmpCtx.transactionContext.tokenSet, 0, MAX_TOKEN);
+                handleSignEIP712Message(G_io_apdu_buffer[OFFSET_P1], G_io_apdu_buffer[OFFSET_P2], G_io_apdu_buffer + OFFSET_CDATA, G_io_apdu_buffer[OFFSET_LC], flags, tx);
                 break;
 
             default:
