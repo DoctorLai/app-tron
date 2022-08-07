@@ -21,6 +21,7 @@
 #define ADD_PRE_FIX_BYTE_MAINNET 0x41
 #define MAX_RAW_SIGNATURE 65
 #define MAX_TOKEN_LENGTH 67
+#define MAX_TOKEN 67
 
 typedef union {
   protocol_TransferContract transfer_contract;
