@@ -3562,7 +3562,7 @@ void handleApdu(volatile unsigned int *flags, volatile unsigned int *tx) {
 
             switch (G_io_apdu_buffer[OFFSET_INS]) {
             case INS_GET_PUBLIC_KEY:
-                os_memset(tmpCtx.transactionContext.tokenSet, 0, MAX_TOKEN);
+                //os_memset(tmpCtx.transactionContext.tokenSet, 0, MAX_TOKEN);
                 // Request Publick Key
                 handleGetPublicKey(G_io_apdu_buffer[OFFSET_P1],
                     G_io_apdu_buffer[OFFSET_P2],
@@ -3609,7 +3609,7 @@ void handleApdu(volatile unsigned int *flags, volatile unsigned int *tx) {
                 break;
 
             case INS_SIGN_PERSONAL_MESSAGE:
-                os_memset(tmpCtx.transactionContext.tokenSet, 0, MAX_TOKEN);
+                //os_memset(tmpCtx.transactionContext.tokenSet, 0, MAX_TOKEN);
                 handleSignPersonalMessage(
                     G_io_apdu_buffer[OFFSET_P1],
                     G_io_apdu_buffer[OFFSET_P2],
@@ -3619,7 +3619,7 @@ void handleApdu(volatile unsigned int *flags, volatile unsigned int *tx) {
                 break;
 
             case INS_SIGN_EIP_712_MESSAGE:
-                os_memset(tmpCtx.transactionContext.tokenSet, 0, MAX_TOKEN);
+                //os_memset(tmpCtx.transactionContext.tokenSet, 0, MAX_TOKEN);
                 handleSignEIP712Message(
                     G_io_apdu_buffer[OFFSET_P1], 
                     G_io_apdu_buffer[OFFSET_P2], 

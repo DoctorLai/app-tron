@@ -22,7 +22,8 @@ from __future__ import print_function
 from ledgerblue.comm import getDongle
 from ledgerblue.commException import CommException
 from decimal import Decimal
-from Crypto.Hash import keccak
+#from Crypto.Hash import keccak
+from Cryptodome.Hash import keccak
 from eth_keys import KeyAPI
 import argparse
 import struct
