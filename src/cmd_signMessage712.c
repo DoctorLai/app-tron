@@ -7,8 +7,7 @@
 #include "ui_flow.h"
 #endif
 
-static char const SIGN_MAGIC[] = "\x19"
-                                       "Tron Signed Message:\n";
+static char const SIGN_MAGIC[] = {"\x19", "Tron Signed Message:\n"};
 
 void handleSignEIP712Message(uint8_t p1, uint8_t p2, uint8_t *workBuffer, uint16_t dataLength, unsigned int *flags, unsigned int *tx) {
   uint8_t i;

@@ -25,7 +25,6 @@
 int verifyTokenNameID(const char *tokenId, const char *tokenName, uint8_t decimals, uint8_t *signature, uint8_t signatureLength, publicKeyContext_t *publicKeyContext);
 int verifyExchangeID(const unsigned char *exchangeValidation,  uint8_t datLength, uint8_t *signature, uint8_t signatureLength, publicKeyContext_t *publicKeyContext);
 
-#define NUM_TOKENS_TRC20 382
 #define ADDRESS_LENGTH 20
 #define MAX_TICKER_LEN 12  //
 
@@ -34,6 +33,8 @@ typedef struct tokenDefinition_t {
     char ticker[10];
     uint8_t decimals;
 } tokenDefinition_t;
+
+#define NUM_TOKENS_TRC20 382
 
 extern tokenDefinition_t const TOKENS_TRC20[NUM_TOKENS_TRC20];
 
