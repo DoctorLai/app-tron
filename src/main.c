@@ -111,21 +111,21 @@ void format_signature_out(const uint8_t *signature) {
 void reset_app_context() {
   //PRINTF("!!RESET_APP_CONTEXT\n");
   appState = APP_STATE_IDLE;
-  os_memset(tmpCtx.transactionContext.tokenSet, 0, MAX_TOKEN);
+  memset(tmpCtx.transactionContext.tokenSet, 0, MAX_ITEMS);
   //contractProvisioned = CONTRACT_NONE;
   //called_from_swap = false;
 #ifdef HAVE_STARKWARE
   quantumSet = false;
 #endif
-  os_memset((uint8_t*)&txContext, 0, sizeof(txContext));
-  //os_memset((uint8_t*)&tmpContent, 0, sizeof(tmpContent));
+  memset((uint8_t*)&txContext, 0, sizeof(txContext));
+  //memset((uint8_t*)&tmpContent, 0, sizeof(tmpContent));
 }
 
 volatile uint8_t customContractField;
 char fromAddress[BASE58CHECK_ADDRESS_SIZE+1+5]; // 5 extra bytes used to inform MultSign ID
 char toAddress[BASE58CHECK_ADDRESS_SIZE + 1];
 char addressSummary[40];
-char fullContract[MAX_TOKEN_LENGTH];
+char fullContract[MAX_TOKEN];
 char TRC20Action[9];
 char TRC20ActionSendAllow[8];
 char fullHash[HASH_SIZE*2+1];
@@ -3562,7 +3562,7 @@ void handleApdu(volatile unsigned int *flags, volatile unsigned int *tx) {
 
             switch (G_io_apdu_buffer[OFFSET_INS]) {
             case INS_GET_PUBLIC_KEY:
-                //os_memset(tmpCtx.transactionContext.tokenSet, 0, MAX_TOKEN);
+                //memset(tmpCtx.transactionContext.tokenSet, 0, MAX_TOKEN);
                 // Request Publick Key
                 handleGetPublicKey(G_io_apdu_buffer[OFFSET_P1],
                     G_io_apdu_buffer[OFFSET_P2],
@@ -3609,7 +3609,7 @@ void handleApdu(volatile unsigned int *flags, volatile unsigned int *tx) {
                 break;
 
             case INS_SIGN_PERSONAL_MESSAGE:
-                //os_memset(tmpCtx.transactionContext.tokenSet, 0, MAX_TOKEN);
+                //memset(tmpCtx.transactionContext.tokenSet, 0, MAX_TOKEN);
                 handleSignPersonalMessage(
                     G_io_apdu_buffer[OFFSET_P1],
                     G_io_apdu_buffer[OFFSET_P2],
@@ -3619,7 +3619,7 @@ void handleApdu(volatile unsigned int *flags, volatile unsigned int *tx) {
                 break;
 
             case INS_SIGN_EIP_712_MESSAGE:
-                //os_memset(tmpCtx.transactionContext.tokenSet, 0, MAX_TOKEN);
+                //memset(tmpCtx.transactionContext.tokenSet, 0, MAX_TOKEN);
                 handleSignEIP712Message(
                     G_io_apdu_buffer[OFFSET_P1], 
                     G_io_apdu_buffer[OFFSET_P2], 

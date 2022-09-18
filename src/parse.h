@@ -20,7 +20,6 @@
 #define SUN_DIG 6
 #define ADD_PRE_FIX_BYTE_MAINNET 0x41
 #define MAX_RAW_SIGNATURE 65
-#define MAX_TOKEN_LENGTH 67
 #define MAX_TOKEN 67
 
 typedef union {
@@ -121,7 +120,7 @@ typedef struct txContent_t {
     uint8_t contractAddress[ADDRESS_SIZE];
     uint8_t TRC20Amount[32];
     uint8_t decimals[2];
-    char tokenNames[2][MAX_TOKEN_LENGTH];
+    char tokenNames[2][MAX_TOKEN];
     uint8_t tokenNamesLength[2];
     uint8_t resource;
     uint8_t TRC20Method;

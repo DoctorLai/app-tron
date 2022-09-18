@@ -2,6 +2,7 @@
 #include "ui_callbacks.h"
 #include "os.h"
 #include "cx.h"
+#include "os_helpers.h"
 
 #include "os_io_seproxyhal.h"
 #include "string.h"
@@ -12,6 +13,7 @@
 static const uint8_t const EIP_712_MAGIC[] = { 0x19, 0x01 };
 
 unsigned int io_seproxyhal_touch_signMessage712_v0_ok(const bagl_element_t *e) {
+    UNUSED(e);
     uint8_t privateKeyData[32];
     uint8_t hash[32];
     uint8_t signature[100];
@@ -32,14 +34,14 @@ unsigned int io_seproxyhal_touch_signMessage712_v0_ok(const bagl_element_t *e) {
         tmpCtx.messageSigningContext712.pathLength, privateKeyData, NULL);
     io_seproxyhal_io_heartbeat();
     cx_ecfp_init_private_key(CX_CURVE_256K1, privateKeyData, 32, &privateKey);
-    os_memset(privateKeyData, 0, sizeof(privateKeyData));
+    memset(privateKeyData, 0, sizeof(privateKeyData));
     unsigned int info = 0;
     io_seproxyhal_io_heartbeat();
     signatureLength =
         cx_ecdsa_sign(&privateKey, CX_RND_RFC6979 | CX_LAST, CX_SHA256,
                       hash,
                       sizeof(hash), signature, sizeof(signature), &info);
-    os_memset(&privateKey, 0, sizeof(privateKey));
+    memset(&privateKey, 0, sizeof(privateKey));
     G_io_apdu_buffer[0] = 27;
     if (info & CX_ECCINFO_PARITY_ODD) {
       G_io_apdu_buffer[0]++;
@@ -60,6 +62,7 @@ unsigned int io_seproxyhal_touch_signMessage712_v0_ok(const bagl_element_t *e) {
 }
 
 unsigned int io_seproxyhal_touch_signMessage712_v0_cancel(const bagl_element_t *e) {
+    UNUSED(e);
     reset_app_context();
     G_io_apdu_buffer[0] = 0x69;
     G_io_apdu_buffer[1] = 0x85;
