@@ -10,7 +10,7 @@
 
 #include "glyphs.h"
 
-static const uint8_t const EIP_712_MAGIC[] = { 0x19, 0x01 };
+static uint8_t const EIP_712_MAGIC[] = { 0x19, 0x01 };
 
 unsigned int io_seproxyhal_touch_signMessage712_v0_ok(const bagl_element_t *e) {
     UNUSED(e);

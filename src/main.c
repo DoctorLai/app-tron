@@ -118,7 +118,7 @@ void reset_app_context() {
   quantumSet = false;
 #endif
   memset((uint8_t*)&txContext, 0, sizeof(txContext));
-  //memset((uint8_t*)&tmpContent, 0, sizeof(tmpContent));
+  memset((uint8_t*)&txContent, 0, sizeof(txContent));
 }
 
 volatile uint8_t customContractField;
@@ -3562,7 +3562,7 @@ void handleApdu(volatile unsigned int *flags, volatile unsigned int *tx) {
 
             switch (G_io_apdu_buffer[OFFSET_INS]) {
             case INS_GET_PUBLIC_KEY:
-                //memset(tmpCtx.transactionContext.tokenSet, 0, MAX_TOKEN);
+                memset(tmpCtx.transactionContext.tokenSet, 0, MAX_ITEMS);
                 // Request Publick Key
                 handleGetPublicKey(G_io_apdu_buffer[OFFSET_P1],
                     G_io_apdu_buffer[OFFSET_P2],
@@ -3609,7 +3609,7 @@ void handleApdu(volatile unsigned int *flags, volatile unsigned int *tx) {
                 break;
 
             case INS_SIGN_PERSONAL_MESSAGE:
-                //memset(tmpCtx.transactionContext.tokenSet, 0, MAX_TOKEN);
+                memset(tmpCtx.transactionContext.tokenSet, 0, MAX_ITEMS);
                 handleSignPersonalMessage(
                     G_io_apdu_buffer[OFFSET_P1],
                     G_io_apdu_buffer[OFFSET_P2],
@@ -3619,7 +3619,7 @@ void handleApdu(volatile unsigned int *flags, volatile unsigned int *tx) {
                 break;
 
             case INS_SIGN_EIP_712_MESSAGE:
-                //memset(tmpCtx.transactionContext.tokenSet, 0, MAX_TOKEN);
+                memset(tmpCtx.transactionContext.tokenSet, 0, MAX_ITEMS);
                 handleSignEIP712Message(
                     G_io_apdu_buffer[OFFSET_P1], 
                     G_io_apdu_buffer[OFFSET_P2], 
