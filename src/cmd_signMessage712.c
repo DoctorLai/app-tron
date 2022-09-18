@@ -1,5 +1,4 @@
 #include "shared_context.h"
-#include "apdu_constants.h"
 #include "utils.h"
 #include "os_io.h"
 #ifdef TARGET_BLUE

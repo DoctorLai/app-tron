@@ -33,7 +33,6 @@
 #include "errors.h"
 #include "errors.h"
 #include "shared_context.h"
-#include "apdu_constants.h"
 strings_t strings;
 unsigned char G_io_seproxyhal_spi_buffer[IO_SEPROXYHAL_BUFFER_SIZE_B];
 
@@ -48,6 +47,7 @@ uint32_t set_result_get_publicKey(void);
 #define INS_SIGN_TXN_HASH 0x05  // unsafe
 #define INS_GET_APP_CONFIGURATION 0x06  // version and settings
 #define INS_SIGN_PERSONAL_MESSAGE 0x08
+#define INS_SIGN_EIP_712_MESSAGE 0x0C
 #define INS_GET_ECDH_SECRET 0x0A
 
 #define P1_CONFIRM 0x01
