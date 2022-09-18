@@ -6,13 +6,12 @@
 #include "parse.h"
 #include "tokens.h"
 #include "nft.h"
+#include "parse.h"
 #include "os_io_seproxyhal.h"
 #include <string.h>
 
 #include "glyphs.h"
 #include "ux.h"
-
-#define MAX_BIP32_PATH 10
 
 #define WEI_TO_ETHER 18
 
@@ -21,8 +20,6 @@
 #define PLUGIN_ID_LENGTH 30
 
 #define INT256_LENGTH  32
-
-#define MAX_BIP32_PATH 10
 
 #define MAX_ITEMS      2
 
