@@ -12,6 +12,7 @@
 
 #include "glyphs.h"
 #include "ux.h"
+#include "parse.h"
 
 #define WEI_TO_ETHER 18
 
@@ -22,15 +23,6 @@
 #define INT256_LENGTH  32
 
 #define MAX_ITEMS      2
-
-/*
-typedef struct publicKeyContext_t {
-    cx_ecfp_public_key_t publicKey;
-    char address[41];
-    uint8_t chainCode[INT256_LENGTH];
-    bool getChaincode;
-} publicKeyContext_t;
-*/
 
 typedef struct messageSigningContext712_t {
     uint8_t pathLength;
@@ -60,7 +52,7 @@ typedef struct transactionContext_t2 {
 
 
 typedef union {
-    //publicKeyContext_t publicKeyContext;
+    publicKeyContext_t publicKeyContext;
     transactionContext_t2 transactionContext;
     messageSigningContext_t messageSigningContext;
     messageSigningContext712_t messageSigningContext712;
