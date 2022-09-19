@@ -233,11 +233,11 @@ bool parseTokenName(uint8_t token_id, uint8_t *data, uint32_t dataLength, txCont
   }
 
   // UPDATE Token with Name[ID]
-  char tmp[MAX_TOKEN];
-  snprintf(tmp, MAX_TOKEN, "%s[%s]", details.name,
+  char tmp[MAX_TOKEN_LENGTH];
+  snprintf(tmp, MAX_TOKEN_LENGTH, "%s[%s]", details.name,
            content->tokenNames[token_id]);
   content->tokenNamesLength[token_id] = strlen((const char *)tmp);
-  strlcpy(content->tokenNames[token_id], tmp, MAX_TOKEN);
+  strlcpy(content->tokenNames[token_id], tmp, MAX_TOKEN_LENGTH);
   content->decimals[token_id] = details.precision;
   return true;
 }
@@ -265,7 +265,7 @@ static bool set_token_info(txContent_t *content, unsigned int token_index,
   }
 
   /* Ugly, but snprintf does not have a return value... */
-  snprintf((char *)content->tokenNames[token_index], MAX_TOKEN, "%s[%s]",
+  snprintf((char *)content->tokenNames[token_index], MAX_TOKEN_LENGTH, "%s[%s]",
            name, id);
   content->tokenNamesLength[token_index] =
       strlen((char *)content->tokenNames[token_index]);
@@ -382,7 +382,7 @@ static bool transfer_asset_contract(txContent_t *content,
   }
   content->amount[0] = msg.transfer_asset_contract.amount;
 
-  if (!printTokenFromID(content->tokenNames[0], MAX_TOKEN,
+  if (!printTokenFromID(content->tokenNames[0], MAX_TOKEN_LENGTH,
                         msg.transfer_asset_contract.asset_name.bytes,
                         msg.transfer_asset_contract.asset_name.size)) {
     return false;
@@ -580,14 +580,14 @@ static bool exchange_create_contract(txContent_t *content,
 
   COPY_ADDRESS(content->account, &msg.exchange_create_contract.owner_address);
 
-  if (!printTokenFromID(content->tokenNames[0], MAX_TOKEN,
+  if (!printTokenFromID(content->tokenNames[0], MAX_TOKEN_LENGTH,
                         msg.exchange_create_contract.first_token_id.bytes,
                         msg.exchange_create_contract.first_token_id.size)) {
     return false;
   }
   content->tokenNamesLength[0] = strlen(content->tokenNames[0]);
 
-  if (!printTokenFromID(content->tokenNames[1], MAX_TOKEN,
+  if (!printTokenFromID(content->tokenNames[1], MAX_TOKEN_LENGTH,
                         msg.exchange_create_contract.second_token_id.bytes,
                         msg.exchange_create_contract.second_token_id.size)) {
     return false;
@@ -608,7 +608,7 @@ static bool exchange_inject_contract(txContent_t *content,
   COPY_ADDRESS(content->account, &msg.exchange_inject_contract.owner_address);
   content->exchangeID = msg.exchange_inject_contract.exchange_id;
 
-  if (!printTokenFromID(content->tokenNames[0], MAX_TOKEN,
+  if (!printTokenFromID(content->tokenNames[0], MAX_TOKEN_LENGTH,
                         msg.exchange_inject_contract.token_id.bytes,
                         msg.exchange_inject_contract.token_id.size)) {
     return false;
@@ -628,7 +628,7 @@ static bool exchange_withdraw_contract(txContent_t *content,
   COPY_ADDRESS(content->account, &msg.exchange_withdraw_contract.owner_address);
   content->exchangeID = msg.exchange_withdraw_contract.exchange_id;
 
-  if (!printTokenFromID(content->tokenNames[0], MAX_TOKEN,
+  if (!printTokenFromID(content->tokenNames[0], MAX_TOKEN_LENGTH,
                         msg.exchange_withdraw_contract.token_id.bytes,
                         msg.exchange_withdraw_contract.token_id.size)) {
     return false;
@@ -649,7 +649,7 @@ static bool exchange_transaction_contract(txContent_t *content,
                &msg.exchange_transaction_contract.owner_address);
   content->exchangeID = msg.exchange_transaction_contract.exchange_id;
 
-  if (!printTokenFromID(content->tokenNames[0], MAX_TOKEN,
+  if (!printTokenFromID(content->tokenNames[0], MAX_TOKEN_LENGTH,
                         msg.exchange_transaction_contract.token_id.bytes,
                         msg.exchange_transaction_contract.token_id.size)) {
     return false;
